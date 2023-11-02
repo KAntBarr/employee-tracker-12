@@ -1,13 +1,20 @@
 const inquirer = require('inquirer');
-const { intro } = require('./questions');
+const { intro, second, third } = require('./questions');
+
+async function askMore(response) {
+    console.log(Object.keys(response)[0], response[`${Object.keys(response)[0]}`]);
+}
+
 
 async function main() {
     let runFlag = true;
     while(runFlag) {
         try {
-            const responses = await inquirer.prompt(intro);
-            if(responses.action == 'quit') {
+            const response = await inquirer.prompt(intro);
+            if(response.intro == 'Quit') {
                 runFlag = false;
+            } else {
+                await askMore(response);
             }
         } catch (error) {
             console.log(error);
