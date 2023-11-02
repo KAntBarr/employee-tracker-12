@@ -91,7 +91,7 @@ const third = {
     update_emp: [
         {
             type: 'list',
-            message: 'Sort employees by: ',
+            message: 'Update employee\'s: ',
             name: 'update-emp',
             default: "View",
             choices: [
