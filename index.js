@@ -1,7 +1,6 @@
-const {queriesController} = require('./controllers'); // why is this line of code crashing my app
-const { intro, second, third } = require('./questions');
 const inquirer = require('inquirer');
-// const queriesController = '';
+const {queriesController} = require('./controllers'); // why is this line of code crashing my app -- bc the db wasn't created
+const { intro, second, third } = require('./questions');
 
 async function askMore(response) {
     console.log(Object.keys(response)[0], response[`${Object.keys(response)[0]}`]);
@@ -129,12 +128,10 @@ async function main() {
     // let response;
     while (runFlag) {
         try {
-            // console.log("test1");
             const response = await inquirer.prompt(intro);
-            // response = await inquirer.prompt(second.view);
-            // console.log("test2");
             if (response.intro == 'Quit') {
                 runFlag = false;
+                await queriesController.end();
             } else {
                 // await askMore(response);
             }
@@ -147,5 +144,3 @@ async function main() {
 };
 
 main();
-// console.log("test3"); // putting this here made a bug that prints the first question twice
-// process.stdin.resume();

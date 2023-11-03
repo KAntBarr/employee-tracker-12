@@ -1,4 +1,4 @@
-const queriesController = require('./queriesController');
+const queriesController = require('./queriesController.js');
 
 module.exports = {
     queriesController,

@@ -1,4 +1,4 @@
-const connection = require('../config/connection');
+const connection = require('../config/connection'); 
 const queries = require('../queries');
 
 async function viewDepartments() {
@@ -208,7 +208,9 @@ async function updateEmpManager() {
     }
 };
 
-
+async function end() {
+    await connection.end();
+}
 
 module.exports = {
     viewDepartments,
@@ -227,4 +229,5 @@ module.exports = {
     viewByManager,
     updateEmpRole,
     updateEmpManager,
+    end,
 }
