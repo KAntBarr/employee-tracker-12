@@ -3,7 +3,7 @@ const {queriesController} = require('./controllers'); // why is this line of cod
 const { intro, second, third } = require('./questions');
 
 async function askMore(response) {
-    console.log(Object.keys(response)[0], response[`${Object.keys(response)[0]}`]);
+    // console.log(Object.keys(response)[0], response[`${Object.keys(response)[0]}`]);
 
     const key = `${Object.keys(response)[0]}`;
     const value = response[`${Object.keys(response)[0]}`];
@@ -92,14 +92,14 @@ async function askMore(response) {
                 break;
             case 'view-sort':
                 switch (value) {
+                    case 'Default':
+                        await queriesController.viewEmployees();
+                        break;
                     case 'Department':
                         await queriesController.viewByDept();
                         break;
                     case 'Manager':
                         await queriesController.viewByManager();
-                        break;
-                    default:
-                        await queriesController.viewEmployees();
                         break;
                 };
                 break;
@@ -133,7 +133,7 @@ async function main() {
                 runFlag = false;
                 await queriesController.end();
             } else {
-                // await askMore(response);
+                await askMore(response);
             }
         } catch (error) {
             console.log(error);

@@ -82,6 +82,7 @@ const third = {
             name: 'view-sort',
             default: "View",
             choices: [
+                "Default",
                 "Department",
                 "Manager",
                 "Go back",
