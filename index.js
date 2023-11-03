@@ -2,6 +2,10 @@ const inquirer = require('inquirer');
 const {queriesController} = require('./controllers'); // why is this line of code crashing my app -- bc the db wasn't created
 const { intro, second, third } = require('./questions');
 
+function showResult(results) {
+    console.log(results);
+};
+
 async function askMore(response) {
     // console.log(Object.keys(response)[0], response[`${Object.keys(response)[0]}`]);
 
@@ -9,6 +13,8 @@ async function askMore(response) {
     const value = response[`${Object.keys(response)[0]}`];
 
     let newResponse;
+    let results;
+
     try {
         switch (key) {
             case 'intro':
@@ -36,40 +42,48 @@ async function askMore(response) {
             case 'view':
                 switch (value) {
                     case 'Departments':
-                        await queriesController.viewDepartments();
+                        results = await queriesController.viewDepartments();
+                        showResult(results);
                         break;
                     case 'Roles':
-                        await queriesController.viewRoles();
+                        results = await queriesController.viewRoles();
+                        showResult(results);
                         break;
                     case 'Employees':
                         newResponse = await inquirer.prompt(third.view_emp);
                         await askMore(newResponse);
                         break;
                     case 'Salaries':
-                        await queriesController.viewSalaries();
+                        results = await queriesController.viewSalaries();
+                        showResult(results);
                         break;
                 };
                 break;
             case 'add':
                 switch (value) {
                     case 'Departments':
-                        await queriesController.addDepartment();
+                        results = await queriesController.addDepartment();
+                        showResult(results);
                         break;
                     case 'Roles':
-                        await queriesController.addRole();
+                        results = await queriesController.addRole();
+                        showResult(results);
                         break;
                     case 'Employees':
-                        await queriesController.addEmployee();
+                        results = await queriesController.addEmployee();
+                        showResult(results);
                         break;
                 };
                 break;
             case 'update':
                 switch (value) {
                     case 'Departments':
-                        await queriesController.updateDepartment();
+                        results = await queriesController.updateDepartment();
+                        showResult(results);
                         break;
                     case 'Roles':
-                        await queriesController.updateRole();
+                        results = await queriesController.updateRole();
+                        showResult(results);
                         break;
                     case 'Employees':
                         newResponse = await inquirer.prompt(third.update_emp);
@@ -80,36 +94,44 @@ async function askMore(response) {
             case 'delete':
                 switch (value) {
                     case 'Departments':
-                        await queriesController.deleteDepartment();
+                        results = await queriesController.deleteDepartment();
+                        showResult(results);
                         break;
                     case 'Roles':
-                        await queriesController.deleteRole();
+                        results = await queriesController.deleteRole();
+                        showResult(results);
                         break;
                     case 'Employees':
-                        await queriesController.deleteEmployee();
+                        results = await queriesController.deleteEmployee();
+                        showResult(results);
                         break;
                 };
                 break;
             case 'view-sort':
                 switch (value) {
                     case 'Default':
-                        await queriesController.viewEmployees();
+                        results = await queriesController.viewEmployees();
+                        showResult(results);
                         break;
                     case 'Department':
-                        await queriesController.viewByDept();
+                        results = await queriesController.viewByDept();
+                        showResult(results);
                         break;
                     case 'Manager':
-                        await queriesController.viewByManager();
+                        results = await queriesController.viewByManager();
+                        showResult(results);
                         break;
                 };
                 break;
             case 'update-emp':
                 switch (value) {
                     case 'Role':
-                        await queriesController.updateEmpRole();
+                        results = await queriesController.updateEmpRole();
+                        showResult(results);
                         break;
                     case 'Manager':
-                        await queriesController.updateEmpManager();
+                        results = await queriesController.updateEmpManager();
+                        showResult(results);
                         break;
                 };
                 break;
