@@ -1,9 +1,29 @@
 const inquirer = require('inquirer');
-const {queriesController} = require('./controllers'); // why is this line of code crashing my app -- bc the db wasn't created
+const { queriesController } = require('./controllers'); // why is this line of code crashing my app -- bc the db wasn't created
 const { intro, second, third } = require('./questions');
+const Table = require('cli-table');
+require('colors');
 
 function showResult(results) {
-    console.log(results);
+    // console.log(results);
+
+    const keys = Object.keys(results[0]);
+    // console.log(keys);
+    const headers = keys.map(key => key.cyan);
+    const table = new Table({
+        head: headers,
+    });
+
+    results.forEach(row => {
+        const columnValues = []
+        keys.forEach(key => {
+            columnValues.push(row[key]);
+        })
+        table.push(columnValues);
+    });
+
+    console.log(table.toString());
+
 };
 
 async function askMore(response) {
@@ -42,11 +62,11 @@ async function askMore(response) {
             case 'view':
                 switch (value) {
                     case 'Departments':
-                        results = await queriesController.viewDepartments();
+                        [results] = await queriesController.viewDepartments();
                         showResult(results);
                         break;
                     case 'Roles':
-                        results = await queriesController.viewRoles();
+                        [results] = await queriesController.viewRoles();
                         showResult(results);
                         break;
                     case 'Employees':
@@ -54,7 +74,7 @@ async function askMore(response) {
                         await askMore(newResponse);
                         break;
                     case 'Salaries':
-                        results = await queriesController.viewSalaries();
+                        [results] = await queriesController.viewSalaries();
                         showResult(results);
                         break;
                 };
@@ -62,15 +82,15 @@ async function askMore(response) {
             case 'add':
                 switch (value) {
                     case 'Departments':
-                        results = await queriesController.addDepartment();
+                        [results] = await queriesController.addDepartment();
                         showResult(results);
                         break;
                     case 'Roles':
-                        results = await queriesController.addRole();
+                        [results] = await queriesController.addRole();
                         showResult(results);
                         break;
                     case 'Employees':
-                        results = await queriesController.addEmployee();
+                        [results] = await queriesController.addEmployee();
                         showResult(results);
                         break;
                 };
@@ -78,11 +98,11 @@ async function askMore(response) {
             case 'update':
                 switch (value) {
                     case 'Departments':
-                        results = await queriesController.updateDepartment();
+                        [results] = await queriesController.updateDepartment();
                         showResult(results);
                         break;
                     case 'Roles':
-                        results = await queriesController.updateRole();
+                        [results] = await queriesController.updateRole();
                         showResult(results);
                         break;
                     case 'Employees':
@@ -94,15 +114,15 @@ async function askMore(response) {
             case 'delete':
                 switch (value) {
                     case 'Departments':
-                        results = await queriesController.deleteDepartment();
+                        [results] = await queriesController.deleteDepartment();
                         showResult(results);
                         break;
                     case 'Roles':
-                        results = await queriesController.deleteRole();
+                        [results] = await queriesController.deleteRole();
                         showResult(results);
                         break;
                     case 'Employees':
-                        results = await queriesController.deleteEmployee();
+                        [results] = await queriesController.deleteEmployee();
                         showResult(results);
                         break;
                 };
@@ -110,15 +130,15 @@ async function askMore(response) {
             case 'view-sort':
                 switch (value) {
                     case 'Default':
-                        results = await queriesController.viewEmployees();
+                        [results] = await queriesController.viewEmployees();
                         showResult(results);
                         break;
                     case 'Department':
-                        results = await queriesController.viewByDept();
+                        [results] = await queriesController.viewByDept();
                         showResult(results);
                         break;
                     case 'Manager':
-                        results = await queriesController.viewByManager();
+                        [results] = await queriesController.viewByManager();
                         showResult(results);
                         break;
                 };
@@ -126,11 +146,11 @@ async function askMore(response) {
             case 'update-emp':
                 switch (value) {
                     case 'Role':
-                        results = await queriesController.updateEmpRole();
+                        [results] = await queriesController.updateEmpRole();
                         showResult(results);
                         break;
                     case 'Manager':
-                        results = await queriesController.updateEmpManager();
+                        [results] = await queriesController.updateEmpManager();
                         showResult(results);
                         break;
                 };

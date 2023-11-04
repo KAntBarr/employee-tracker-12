@@ -1,4 +1,10 @@
-const viewDepartments = "SELECT 1";
+const viewDepartments = 
+`SELECT 
+    id,
+    name AS 'departments'
+FROM
+    departments;
+`;
 
 const viewRoles = "SELECT 1";
 
