@@ -66,6 +66,30 @@ const updateEmpRole = "SELECT 1";
 
 const updateEmpManager = "SELECT 1";
 
+const simpleRoleView =
+`SELECT
+    id,
+    title
+FROM
+    roles;
+`;
+
+const simpleEmployeeView =
+`SELECT
+    id,
+    CONCAT(first_name, ' ', last_name)
+FROM
+    employees;
+`;
+
+const simpleDeptView =
+`SELECT
+    id,
+    name
+FROM
+    departments;
+`;
+
 module.exports = {
     viewDepartments,
     viewRoles,
@@ -83,4 +107,8 @@ module.exports = {
     viewByManager,
     updateEmpRole,
     updateEmpManager,
+    simpleRoleView,
+    simpleEmployeeView,
+    simpleDeptView,
+
 }

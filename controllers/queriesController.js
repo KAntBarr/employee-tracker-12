@@ -208,6 +208,55 @@ async function updateEmpManager() {
     }
 };
 
+async function simpleRoleView() {
+
+    console.log("simpleRoleView");
+    const query = queries.simpleRoleView;
+    try {
+        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query simpleRoleView");
+    }
+}
+
+async function simpleEmployeeView() {
+
+    console.log("simpleEmployeeView");
+    const query = queries.simpleEmployeeView;
+    try {
+        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query simpleEmployeeView");
+    }
+}
+
+async function simpleDeptView() {
+
+    console.log("simpleDeptView");
+    const query = queries.simpleDeptView;
+    try {
+        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query simpleDeptView");
+    }
+}
+
+async function handleDelete() {
+
+}
+
+async function handleAdd() {
+
+}
+
+async function handleUpdate() {
+
+}
+
+
 async function end() {
     await connection.end();
 }
@@ -229,5 +278,9 @@ module.exports = {
     viewByManager,
     updateEmpRole,
     updateEmpManager,
+    simpleEmployeeView,
+    simpleRoleView,
+    simpleDeptView,
+
     end,
 }
