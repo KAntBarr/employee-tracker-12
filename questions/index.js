@@ -37,9 +37,9 @@ const second = {
             name: 'add',
             default: "View",
             choices: [
-                "Departments",
-                "Roles",
-                "Employees",
+                "Department",
+                "Role",
+                "Employee",
                 "Go back",
             ]
         }
@@ -47,7 +47,7 @@ const second = {
     update: [
         {
             type: 'list',
-            message: 'What would you like to add?',
+            message: 'What would you like to update?',
             name: 'update',
             default: "View",
             choices: [
@@ -61,7 +61,7 @@ const second = {
     delete: [
         {
             type: 'list',
-            message: 'What would you like to add?',
+            message: 'What would you like to delete?',
             name: 'delete',
             default: "View",
             choices: [
