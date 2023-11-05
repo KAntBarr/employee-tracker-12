@@ -61,13 +61,47 @@ const addDepartment =
 VALUES(?);
 `;
 
-const addRole = "SELECT 1";
+const addRole =
+`INSERT INTO roles(title, department_id, salary)
+VALUES(?, ?, ?);
+`;
 
-const addEmployee = "SELECT 1";
+const addEmployee =
+`INSERT INTO employees(first_name, last_name, manager_id, role_id)
+VALUES(?, ?, ?, ?);
+`;
 
-const updateDepartment = "SELECT 1";
+const updateDepartment =
+`UPDATE
+    departments
+SET
+    name = ?
+WHERE
+    id = ?;
+`;
 
-const updateRole = "SELECT 1";
+const updateRole =
+`UPDATE
+    roles
+SET
+    title = ?,
+    salary = ?,
+    department_id = ?
+WHERE
+    id = ?;
+`;
+
+const updateEmp =
+`UPDATE
+    employees
+SET
+    first_name = ?,
+    last_name = ?,
+    manager_id = ?,
+    role_id = ?
+WHERE
+    id = ?;
+`;
 
 const deleteDepartment =
 `DELETE FROM departments WHERE id = ?;
@@ -129,10 +163,6 @@ ORDER BY
     m.first_name DESC;
 `;
 
-const updateEmpRole = "SELECT 1";
-
-const updateEmpManager = "SELECT 1";
-
 const simpleRoleView =
 `SELECT
     CONCAT(id, ":", title) AS 'name'
@@ -154,6 +184,15 @@ FROM
     departments;
 `;
 
+const showOtherEmps =
+`SELECT
+    CONCAT(id, ':', first_name, ' ', last_name) AS 'name'
+FROM
+    employees
+WHERE
+    id != ?;
+`;
+
 module.exports = {
     viewDepartments,
     viewRoles,
@@ -164,15 +203,15 @@ module.exports = {
     addEmployee,
     updateDepartment,
     updateRole,
+    updateEmp,
     deleteDepartment,
     deleteRole,
     deleteEmployee,
     viewByDept,
     viewByManager,
-    updateEmpRole,
-    updateEmpManager,
     simpleRoleView,
     simpleEmployeeView,
     simpleDeptView,
+    showOtherEmps,
 
 }

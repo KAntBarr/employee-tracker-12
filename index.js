@@ -6,10 +6,10 @@ require('colors');
 
 function showResult(results, isString) {
     // console.log(results);
-    if(isString === -1) {
+    if (isString === -1) {
         console.log('there was an error');
         return;
-    } else if(isString === 1) {
+    } else if (isString === 1) {
         console.log(results);
         return;
     }
@@ -36,7 +36,7 @@ function showResult(results, isString) {
 async function askMore(response) {
     // console.log(Object.keys(response)[0], response[`${Object.keys(response)[0]}`]);
 
-    
+
 
     const key = `${Object.keys(response)[0]}`;
     const value = response[`${Object.keys(response)[0]}`];
@@ -45,6 +45,7 @@ async function askMore(response) {
     let results;
     let id;
     let data;
+    let parameters;
 
     try {
         switch (key) {
@@ -105,17 +106,68 @@ async function askMore(response) {
                 break;
             case 'add':
                 switch (value) {
-                    case 'Departments':
-                        [results] = await queriesController.addDepartment();
-                        showResult(results);
+                    case 'Department':
+
+                        newResponse = await inquirer.prompt(add.add_dept);
+                        // console.log(newResponse);
+
+                        [results] = await queriesController.addDepartment([newResponse['add-dept']]);
+                        // console.log(results);
+                        showResult(`Department '${newResponse['add-dept']}' was added.`, 1);
                         break;
-                    case 'Roles':
-                        [results] = await queriesController.addRole();
-                        showResult(results);
+                    case 'Role':
+                        [results] = await queriesController.simpleDeptView();
+
+                        add.add_role[2].choices = [];
+                        results.forEach(row => {
+                            add.add_role[2].choices.push(row.name);
+                        })
+                        add.add_role[2].choices.push('Go back');
+                        newResponse = await inquirer.prompt(add.add_role);
+                        if (newResponse['role-dept'] === 'Go back') break;
+                        // console.log(newResponse['add-role']);
+                        [id, data] = newResponse['role-dept'].split(':');
+                        parameters = [
+                            newResponse['role-name'],
+                            id,
+                            newResponse['role-salary']
+                        ];
+
+                        [results] = await queriesController.addRole(parameters);
+                        showResult(`Role '${newResponse['role-name']}' was added.`, 1);
                         break;
-                    case 'Employees':
-                        [results] = await queriesController.addEmployee();
-                        showResult(results);
+                    case 'Employee':
+                        [results] = await queriesController.simpleRoleView();
+
+                        add.add_emp[2].choices = [];
+                        results.forEach(row => {
+                            add.add_emp[2].choices.push(row.name);
+                        });
+
+                        [results] = await queriesController.simpleEmployeeView();
+
+                        add.add_emp[3].choices = [];
+                        results.forEach(row => {
+                            add.add_emp[3].choices.push(row.name);
+                        })
+                        add.add_emp[3].choices.push('Go back');
+                        newResponse = await inquirer.prompt(add.add_emp);
+                        if (newResponse['emp-manager'] === 'Go back') break;
+                        // console.log(newResponse['add-role']);
+                        const [roleID, roleData] = newResponse['emp-role'].split(':');
+                        const [managerID, managerData] = newResponse['emp-manager'].split(':');
+
+
+                        parameters = [
+                            newResponse['emp-fname'],
+                            newResponse['emp-lname'],
+                            managerID,
+                            roleID
+                        ];
+
+
+                        [results] = await queriesController.addEmployee(parameters);
+                        showResult(`Employee '${newResponse['emp-fname']} ${newResponse['emp-lname']}' was added.`, 1);
                         break;
                 };
                 break;
@@ -148,16 +200,16 @@ async function askMore(response) {
                 switch (value) {
                     case 'Departments':
                         [results] = await queriesController.simpleDeptView();
-                        
+
                         remove.remove_dept[0].choices = [];
-                        results.forEach( row => {
+                        results.forEach(row => {
                             remove.remove_dept[0].choices.push(row.name);
                         })
                         remove.remove_dept[0].choices.push('Go back');
                         newResponse = await inquirer.prompt(remove.remove_dept);
-                        if(newResponse['remove-dept']==='Go back') break;
+                        if (newResponse['remove-dept'] === 'Go back') break;
                         // console.log(newResponse['remove-dept']);
-                        [ id, data] = newResponse['remove-dept'].split(':');
+                        [id, data] = newResponse['remove-dept'].split(':');
 
                         [results] = await queriesController.deleteDepartment([id]);
                         // console.log(results);
@@ -167,14 +219,14 @@ async function askMore(response) {
                         [results] = await queriesController.simpleRoleView();
                         // console.log(results);
                         remove.remove_role[0].choices = [];
-                        results.forEach( row => {
+                        results.forEach(row => {
                             remove.remove_role[0].choices.push(row.name);
                         })
                         remove.remove_role[0].choices.push('Go back');
                         newResponse = await inquirer.prompt(remove.remove_role);
-                        if(newResponse['remove-role']==='Go back') break;
+                        if (newResponse['remove-role'] === 'Go back') break;
                         // console.log(newResponse['remove-role']);
-                        [ id, data] = newResponse['remove-role'].split(':');
+                        [id, data] = newResponse['remove-role'].split(':');
 
                         [results] = await queriesController.deleteRole([id]);
                         showResult(`${data} was deleted.`, 1);
@@ -183,20 +235,20 @@ async function askMore(response) {
                         [results] = await queriesController.simpleEmployeeView();
 
                         remove.remove_emp[0].choices = [];
-                        results.forEach( row => {
+                        results.forEach(row => {
                             remove.remove_emp[0].choices.push(row.name);
                         })
                         remove.remove_emp[0].choices.push('Go back');
                         newResponse = await inquirer.prompt(remove.remove_emp);
-                        if(newResponse['remove-emp']==='Go back') break;
+                        if (newResponse['remove-emp'] === 'Go back') break;
                         // console.log(newResponse['remove-emp']);
-                        [ id, data] = newResponse['remove-emp'].split(':');
+                        [id, data] = newResponse['remove-emp'].split(':');
 
                         [results] = await queriesController.deleteEmployee([id]);
                         showResult(`${data} was deleted.`, 1);
                         break;
                 };
-                break;    
+                break;
         };
     } catch (error) {
         console.log(error);
