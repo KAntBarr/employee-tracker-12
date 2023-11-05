@@ -4,10 +4,13 @@ const { intro, second, view, add, update, remove } = require('./questions');
 const Table = require('cli-table');
 require('colors');
 
-function showResult(results) {
+function showResult(results, isString) {
     // console.log(results);
-    if(results === -1) {
+    if(isString === -1) {
         console.log('there was an error');
+        return;
+    } else if(isString === 1) {
+        console.log(results);
         return;
     }
 
@@ -40,6 +43,8 @@ async function askMore(response) {
 
     let newResponse;
     let results;
+    let id;
+    let data;
 
     try {
         switch (key) {
@@ -151,17 +156,44 @@ async function askMore(response) {
                         remove.remove_dept[0].choices.push('Go back');
                         newResponse = await inquirer.prompt(remove.remove_dept);
                         if(newResponse['remove-dept']==='Go back') break;
+                        // console.log(newResponse['remove-dept']);
+                        [ id, data] = newResponse['remove-dept'].split(':');
 
-                        // [results] = await queriesController.deleteDepartment();
-                        // showResult(results);
+                        [results] = await queriesController.deleteDepartment([id]);
+                        // console.log(results);
+                        showResult(`${data} was deleted.`, 1);
                         break;
                     case 'Roles':
-                        [results] = await queriesController.deleteRole();
-                        showResult(results);
+                        [results] = await queriesController.simpleRoleView();
+                        // console.log(results);
+                        remove.remove_role[0].choices = [];
+                        results.forEach( row => {
+                            remove.remove_role[0].choices.push(row.name);
+                        })
+                        remove.remove_role[0].choices.push('Go back');
+                        newResponse = await inquirer.prompt(remove.remove_role);
+                        if(newResponse['remove-role']==='Go back') break;
+                        // console.log(newResponse['remove-role']);
+                        [ id, data] = newResponse['remove-role'].split(':');
+
+                        [results] = await queriesController.deleteRole([id]);
+                        showResult(`${data} was deleted.`, 1);
                         break;
                     case 'Employees':
-                        [results] = await queriesController.deleteEmployee();
-                        showResult(results);
+                        [results] = await queriesController.simpleEmployeeView();
+
+                        remove.remove_emp[0].choices = [];
+                        results.forEach( row => {
+                            remove.remove_emp[0].choices.push(row.name);
+                        })
+                        remove.remove_emp[0].choices.push('Go back');
+                        newResponse = await inquirer.prompt(remove.remove_emp);
+                        if(newResponse['remove-emp']==='Go back') break;
+                        // console.log(newResponse['remove-emp']);
+                        [ id, data] = newResponse['remove-emp'].split(':');
+
+                        [results] = await queriesController.deleteEmployee([id]);
+                        showResult(`${data} was deleted.`, 1);
                         break;
                 };
                 break;    

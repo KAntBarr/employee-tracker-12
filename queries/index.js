@@ -40,9 +40,26 @@ LEFT JOIN
     employees AS m ON e.manager_id=m.id;
 `;
 
-const viewSalaries = "SELECT 1";
+const viewSalaries =
+`SELECT
+    d.name AS "department",
+    SUM(r.salary) AS "salary"
+FROM
+    employees AS e
+LEFT JOIN
+    roles AS r ON e.role_id=r.id
+LEFT JOIN
+    departments as d ON r.department_id=d.id
+GROUP BY
+    d.name
+ORDER BY
+    salary DESC;
+`;
 
-const addDepartment = "SELECT 1";
+const addDepartment =
+`INSERT INTO departments(name)
+VALUES(?);
+`;
 
 const addRole = "SELECT 1";
 
@@ -52,15 +69,65 @@ const updateDepartment = "SELECT 1";
 
 const updateRole = "SELECT 1";
 
-const deleteDepartment = "SELECT 1";
+const deleteDepartment =
+`DELETE FROM departments WHERE id = ?;
+`;
 
-const deleteRole = "SELECT 1";
+const deleteRole =
+`DELETE FROM roles WHERE id = ?;
+`;
 
-const deleteEmployee = "SELECT 1";
+const deleteEmployee =
+`DELETE FROM employees WHERE id = ?;
+`;
 
-const viewByDept = "SELECT 1";
+const viewByDept =
+`SELECT
+    e.id AS "id",
+    e.first_name AS "first_name",
+    e.last_name AS "last_name",
+    r.title AS "title",
+    d.name AS "department",
+    r.salary AS "salary",
+    CASE 
+        WHEN CONCAT(m.first_name, ' ', m.last_name) IS NULL THEN 'null'
+        ELSE CONCAT(m.first_name, ' ', m.last_name)
+    END AS "manager"
+FROM
+    employees AS e
+LEFT JOIN
+    roles AS r ON e.role_id=r.id
+LEFT JOIN
+    departments as d ON r.department_id=d.id
+LEFT JOIN
+    employees AS m ON e.manager_id=m.id
+ORDER BY
+    d.name ASC;
+`;
 
-const viewByManager = "SELECT 1";
+const viewByManager =
+`SELECT
+    e.id AS "id",
+    e.first_name AS "first_name",
+    e.last_name AS "last_name",
+    r.title AS "title",
+    d.name AS "department",
+    r.salary AS "salary",
+    CASE 
+        WHEN CONCAT(m.first_name, ' ', m.last_name) IS NULL THEN 'null'
+        ELSE CONCAT(m.first_name, ' ', m.last_name)
+    END AS "manager"
+FROM
+    employees AS e
+LEFT JOIN
+    roles AS r ON e.role_id=r.id
+LEFT JOIN
+    departments as d ON r.department_id=d.id
+LEFT JOIN
+    employees AS m ON e.manager_id=m.id
+ORDER BY
+    m.first_name DESC;
+`;
 
 const updateEmpRole = "SELECT 1";
 
@@ -68,24 +135,21 @@ const updateEmpManager = "SELECT 1";
 
 const simpleRoleView =
 `SELECT
-    id,
-    title
+    CONCAT(id, ":", title) AS 'name'
 FROM
     roles;
 `;
 
 const simpleEmployeeView =
 `SELECT
-    id,
-    CONCAT(first_name, ' ', last_name)
+    CONCAT(id, ':', first_name, ' ', last_name) AS 'name'
 FROM
     employees;
 `;
 
 const simpleDeptView =
 `SELECT
-    id,
-    name
+    CONCAT(id, ":", name) AS 'name'
 FROM
     departments;
 `;

@@ -53,12 +53,12 @@ async function viewSalaries() {
 };
 
 
-async function addDepartment() {
+async function addDepartment(parameters = []) {
 
     console.log("adding departments");
     const query = queries.addDepartment;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to add a department");
@@ -66,12 +66,12 @@ async function addDepartment() {
 };
 
 
-async function addRole() {
+async function addRole(parameters = []) {
 
     console.log("adding roles");
     const query = queries.addRole;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to add a role");
@@ -79,12 +79,12 @@ async function addRole() {
 };
 
 
-async function addEmployee() {
+async function addEmployee(parameters = []) {
 
     console.log("adding employee");
     const query = queries.addEmployee;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to add an employee");
@@ -92,12 +92,12 @@ async function addEmployee() {
 };
 
 
-async function updateDepartment() {
+async function updateDepartment(parameters = []) {
 
     console.log("updating departments");
     const query = queries.updateDepartment;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to update a department");
@@ -105,12 +105,12 @@ async function updateDepartment() {
 };
 
 
-async function updateRole() {
+async function updateRole(parameters = []) {
 
     console.log("updating roles");
     const query = queries.updateRole;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to update a role");
@@ -118,12 +118,12 @@ async function updateRole() {
 };
 
 
-async function deleteDepartment() {
+async function deleteDepartment(parameters = []) {
 
     console.log("deleting departments");
     const query = queries.deleteDepartment;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to delete a department");
@@ -131,12 +131,12 @@ async function deleteDepartment() {
 };
 
 
-async function deleteRole() {
+async function deleteRole(parameters = []) {
 
     console.log("deleting role");
     const query = queries.deleteRole;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to delete a role");
@@ -144,14 +144,15 @@ async function deleteRole() {
 };
 
 
-async function deleteEmployee() {
+async function deleteEmployee(parameters = []) {
 
     console.log("deleting employee");
     const query = queries.deleteEmployee;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
+        console.log(error);
         throw new Error("Error running query to delete an employee");
     }
 };
@@ -183,12 +184,12 @@ async function viewByManager() {
 };
 
 
-async function updateEmpRole() {
+async function updateEmpRole(parameters = []) {
 
     console.log("updating employee's role");
     const query = queries.updateEmpRole;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to update an employee's role");
@@ -196,12 +197,12 @@ async function updateEmpRole() {
 };
 
 
-async function updateEmpManager() {
+async function updateEmpManager(parameters = []) {
 
     console.log("updating employee's manager");
     const query = queries.updateEmpManager;
     try {
-        const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
         return [rows, fields];
     } catch (error) {
         throw new Error("Error running query to update an employee's manager");
