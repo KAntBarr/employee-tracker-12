@@ -177,7 +177,7 @@ const update = {
     update_emp_role: [
         {
             type: 'list',
-            message: 'What is this employee\'s role? ',
+            message: 'What is this employee\'s new role? ',
             name: 'update-emp-role',
             choices: []
         }
@@ -185,7 +185,7 @@ const update = {
     update_emp_manager: [
         {
             type: 'list',
-            message: 'Who is this employee\'s manager? ',
+            message: 'Who is this employee\'s new manager? ',
             name: 'update-emp-manager',
             choices: []
         }
@@ -205,27 +205,28 @@ const update = {
                 "Title",
                 "Salary",
                 "Department",
+                "Go back"
             ]
         }
     ],
     update_role_title: [
         {
             type: 'input',
-            message: 'What is this role\'s title? ',
+            message: 'What is this role\'s new title? ',
             name: 'update-role-title',
         }
     ],
     update_role_salary: [
         {
             type: 'input',
-            message: 'What is this role\'s salary? ',
+            message: 'What is this role\'s new salary? ',
             name: 'update-role-salary',
         }
     ],
     update_role_dept: [
         {
             type: 'list',
-            message: 'Which department does this role belong to? ',
+            message: 'Which new department does this role belong to? ',
             name: 'update-role-dept',
             choices: []
         }
@@ -239,7 +240,7 @@ const update = {
         },
         {
             type: 'input',
-            message: 'What is the department\'s name? ',
+            message: 'What is the department\'s new name? ',
             name: 'update-dept-name',
         },
     ]

@@ -118,6 +118,19 @@ async function updateRole(parameters = []) {
 };
 
 
+async function updateEmployee(parameters = []) {
+
+    console.log("updating employee's role");
+    const query = queries.updateEmp;
+    try {
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query to update an employee's role");
+    }
+};
+
+
 async function deleteDepartment(parameters = []) {
 
     console.log("deleting departments");
@@ -184,31 +197,6 @@ async function viewByManager() {
 };
 
 
-async function updateEmpRole(parameters = []) {
-
-    console.log("updating employee's role");
-    const query = queries.updateEmpRole;
-    try {
-        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
-        return [rows, fields];
-    } catch (error) {
-        throw new Error("Error running query to update an employee's role");
-    }
-};
-
-
-async function updateEmpManager(parameters = []) {
-
-    console.log("updating employee's manager");
-    const query = queries.updateEmpManager;
-    try {
-        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
-        return [rows, fields];
-    } catch (error) {
-        throw new Error("Error running query to update an employee's manager");
-    }
-};
-
 async function simpleRoleView() {
 
     console.log("simpleRoleView");
@@ -220,6 +208,7 @@ async function simpleRoleView() {
         throw new Error("Error running query simpleRoleView");
     }
 }
+
 
 async function simpleEmployeeView() {
 
@@ -233,6 +222,7 @@ async function simpleEmployeeView() {
     }
 }
 
+
 async function simpleDeptView() {
 
     console.log("simpleDeptView");
@@ -245,18 +235,41 @@ async function simpleDeptView() {
     }
 }
 
-async function handleDelete() {
+async function getDepartment(parameters = []) {
 
+    console.log("getDepartment");
+    const query = queries.getDepartment;
+    try {
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query getDepartment");
+    }
 }
 
-async function handleAdd() {
+async function getRole(parameters = []) {
 
+    console.log("getRole");
+    const query = queries.getRole;
+    try {
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query getRole");
+    }
 }
 
-async function handleUpdate() {
+async function getEmployee(parameters = []) {
 
+    console.log("getEmployee");
+    const query = queries.getEmployee;
+    try {
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query getEmployee");
+    }
 }
-
 
 async function end() {
     await connection.end();
@@ -277,11 +290,13 @@ module.exports = {
     deleteEmployee,
     viewByDept,
     viewByManager,
-    updateEmpRole,
-    updateEmpManager,
+    updateEmployee,
     simpleEmployeeView,
     simpleRoleView,
     simpleDeptView,
+    getEmployee,
+    getRole,
+    getDepartment,
 
     end,
 }

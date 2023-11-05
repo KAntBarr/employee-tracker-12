@@ -174,14 +174,81 @@ async function askMore(response) {
             case 'update':
                 switch (value) {
                     case 'Departments':
-                        [results] = await queriesController.updateDepartment();
-                        showResult(results);
+                        [results] = await queriesController.simpleDeptView();
+
+                        update.update_dept[0].choices = [];
+                        results.forEach(row => {
+                            update.update_dept[0].choices.push(row.name);
+                        })
+                        update.update_dept[0].choices.push('Go back');
+                        newResponse = await inquirer.prompt(update.update_dept);
+                        if (newResponse['update-dept'] === 'Go back') break;
+                        [id, data] = newResponse['update-dept'].split(':');
+
+                        // [results] = await queriesController.getDepartment([id]);
+
+                        parameters = [
+                            newResponse['update-dept-name'],
+                            id
+                        ];
+
+                        [results] = await queriesController.updateDepartment(parameters);
+                        showResult(`Department '${data}' updated to '${newResponse['update-dept-name']}'`, 1);
                         break;
                     case 'Roles':
-                        [results] = await queriesController.updateRole();
-                        showResult(results);
+                        [results] = await queriesController.simpleRoleView();
+
+                        update.update_role[0].choices = [];
+                        results.forEach(row => {
+                            update.update_role[0].choices.push(row.name);
+                        })
+                        newResponse = await inquirer.prompt(update.update_role);
+                        [id, data] = newResponse['update-role'].split(':');
+
+                        [results] = await queriesController.getRole([id]);
+
+                        // console.log(results);
+
+                        parameters = [
+                            results[0].title,// title
+                            results[0].salary,// salary
+                            results[0].department_id,// department_id
+                            id// id
+                        ];
+                        if (newResponse['update-role-options'] === 'Go back') break;
+                        switch (newResponse['update-role-options']) {
+                            case 'Title':
+                                newResponse = await inquirer.prompt(update.update_role_title);
+                                parameters[0] = newResponse['update-role-title'];
+                                [results] = await queriesController.updateRole(parameters);
+                                showResult(`Role '${data}' updated to '${newResponse['update-role-title']}'`, 1);
+                                break;
+                            case 'Salary':
+                                newResponse = await inquirer.prompt(update.update_role_salary);
+                                const oldSalary = parameters[1];
+                                parameters[1] = Number(newResponse['update-role-salary']);
+                                [results] = await queriesController.updateRole(parameters);
+                                showResult(`Role '${data}' salary updated from '${oldSalary}' to '${newResponse['update-role-salary']}'`, 1);
+                                break;
+                            case 'Department':
+                                [results] = await queriesController.simpleDeptView();
+
+                                update.update_role_dept[0].choices = [];
+                                results.forEach(row => {
+                                    update.update_role_dept[0].choices.push(row.name);
+                                })
+                                update.update_role_dept[0].choices.push('Go back');
+                                newResponse = await inquirer.prompt(update.update_role_dept);
+                                if (newResponse['update-role-dept'] === 'Go back') break;
+                                [id, data] = newResponse['update-role-dept'].split(':');
+                                parameters[2] = id;
+                                [results] = await queriesController.updateRole(parameters);
+                                showResult(`Role '${parameters[0]}' is now under department '${data}'`, 1);
+                                break;
+                        }
                         break;
                     case 'Employees':
+
                         newResponse = await inquirer.prompt(update.update_emp);
                         switch (newResponse['update-emp']) {
                             case 'Role':

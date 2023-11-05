@@ -184,6 +184,33 @@ FROM
     departments;
 `;
 
+const getEmployee =
+`SELECT
+    *
+FROM
+    employees
+WHERE
+    id = ?;
+`;
+
+const getRole =
+`SELECT
+    *
+FROM
+    roles
+WHERE
+    id = ?;
+`;
+
+const getDepartment =
+`SELECT
+    *
+FROM
+    departments
+WHERE
+    id = ?;
+`;
+
 const showOtherEmps =
 `SELECT
     CONCAT(id, ':', first_name, ' ', last_name) AS 'name'
@@ -212,6 +239,9 @@ module.exports = {
     simpleRoleView,
     simpleEmployeeView,
     simpleDeptView,
+    getDepartment,
+    getEmployee,
+    getRole,
     showOtherEmps,
 
 }
