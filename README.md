@@ -20,11 +20,11 @@ You can clone this repository here ==> git@github.com:KAntBarr/employee-tracker-
 Node JS is a requirement. Run 'node index.js' while in the installation directory.
 
 ## Credits
-cli-table v0.3.11 - https://github.com/Automattic/cli-table
-colors v1.4.0 - https://github.com/Marak/colors.js
-dotenv v16.3.1 - https://github.com/motdotla/dotenv
-inquirer v8.2.4 - https://github.com/SBoudrias/Inquirer.js
-mysql2 v3.6.2 - https://github.com/sidorares/node-mysql2
+- cli-table v0.3.11 - https://github.com/Automattic/cli-table
+- colors v1.4.0 - https://github.com/Marak/colors.js
+- dotenv v16.3.1 - https://github.com/motdotla/dotenv
+- inquirer v8.2.4 - https://github.com/SBoudrias/Inquirer.js
+- mysql2 v3.6.2 - https://github.com/sidorares/node-mysql2
 
 ## License
 Licensed under the MIT license.
