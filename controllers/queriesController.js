@@ -271,6 +271,18 @@ async function getEmployee(parameters = []) {
     }
 }
 
+async function showOtherEmps(parameters = []) {
+
+    console.log("showOtherEmps");
+    const query = queries.showOtherEmps;
+    try {
+        const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
+        return [rows, fields];
+    } catch (error) {
+        throw new Error("Error running query showOtherEmps");
+    }
+}
+
 async function end() {
     await connection.end();
 }
@@ -297,6 +309,7 @@ module.exports = {
     getEmployee,
     getRole,
     getDepartment,
+    showOtherEmps,
 
     end,
 }

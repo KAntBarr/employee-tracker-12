@@ -248,18 +248,73 @@ async function askMore(response) {
                         }
                         break;
                     case 'Employees':
+                        [results] = await queriesController.simpleEmployeeView();
 
+                        update.update_emp[0].choices = [];
+                        results.forEach(row => {
+                            update.update_emp[0].choices.push(row.name);
+                        })
                         newResponse = await inquirer.prompt(update.update_emp);
-                        switch (newResponse['update-emp']) {
+                        [id, data] = newResponse['update-emp'].split(':');
+
+                        [results] = await queriesController.getEmployee([id]);
+
+                        // console.log(results);
+
+                        parameters = [
+                            results[0].first_name,// 
+                            results[0].last_name,// 
+                            results[0].manager_id,//
+                            results[0].role_id,
+                            id// id
+                        ];
+                        if (newResponse['update-emp-options'] === 'Go back') break;
+                        switch (newResponse['update-emp-options']) {
+                            case 'First Name':
+                                newResponse = await inquirer.prompt(update.update_emp_fname);
+                                const oldFName = parameters[0];
+                                parameters[0] = newResponse['update-emp-fname'];
+                                [results] = await queriesController.updateEmployee(parameters);
+                                showResult(`Employee first name changed from '${oldFName}' to '${parameters[0]}'`, 1);
+                                break;
+                            case 'Last Name':
+                                newResponse = await inquirer.prompt(update.update_emp_lname);
+                                const oldLName = parameters[1];
+                                parameters[1] = newResponse['update-emp-lname'];
+                                [results] = await queriesController.updateEmployee(parameters);
+                                showResult(`Employee last name changed from '${oldLName}' to '${parameters[1]}'`, 1);
+                                break;
                             case 'Role':
-                                [results] = await queriesController.updateEmpRole();
-                                showResult(results);
+                                [results] = await queriesController.simpleRoleView();
+
+                                update.update_emp_role[0].choices = [];
+                                results.forEach(row => {
+                                    update.update_emp_role[0].choices.push(row.name);
+                                })
+                                update.update_emp_role[0].choices.push('Go back');
+                                newResponse = await inquirer.prompt(update.update_emp_role);
+                                if (newResponse['update-emp-role'] === 'Go back') break;
+                                [id, data] = newResponse['update-emp-role'].split(':');
+                                parameters[3] = id;
+                                [results] = await queriesController.updateEmployee(parameters);
+                                showResult(`Employee '${parameters[0]}' now has title '${data}'`, 1);
                                 break;
                             case 'Manager':
-                                [results] = await queriesController.updateEmpManager();
-                                showResult(results);
+                                [results] = await queriesController.showOtherEmps([id]);
+
+                                update.update_emp_manager[0].choices = [];
+                                results.forEach(row => {
+                                    update.update_emp_manager[0].choices.push(row.name);
+                                })
+                                update.update_emp_manager[0].choices.push('Go back');
+                                newResponse = await inquirer.prompt(update.update_emp_manager);
+                                if (newResponse['update-emp-manager'] === 'Go back') break;
+                                [id, data] = newResponse['update-emp-manager'].split(':');
+                                parameters[2] = id;
+                                [results] = await queriesController.updateEmployee(parameters);
+                                showResult(`Employee '${parameters[0]}' now reports to '${data}'`, 1);
                                 break;
-                        };
+                        }
                         break;
                 };
                 break;
