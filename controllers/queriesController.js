@@ -55,7 +55,7 @@ async function viewSalaries() {
 
 async function addDepartment(parameters = []) {
 
-    console.log("adding departments");
+    // console.log("adding departments");
     const query = queries.addDepartment;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -68,7 +68,7 @@ async function addDepartment(parameters = []) {
 
 async function addRole(parameters = []) {
 
-    console.log("adding roles");
+    // console.log("adding roles");
     const query = queries.addRole;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -81,7 +81,7 @@ async function addRole(parameters = []) {
 
 async function addEmployee(parameters = []) {
 
-    console.log("adding employee");
+    // console.log("adding employee");
     const query = queries.addEmployee;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -94,7 +94,7 @@ async function addEmployee(parameters = []) {
 
 async function updateDepartment(parameters = []) {
 
-    console.log("updating departments");
+    // console.log("updating departments");
     const query = queries.updateDepartment;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -107,7 +107,7 @@ async function updateDepartment(parameters = []) {
 
 async function updateRole(parameters = []) {
 
-    console.log("updating roles");
+    // console.log("updating roles");
     const query = queries.updateRole;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -120,7 +120,7 @@ async function updateRole(parameters = []) {
 
 async function updateEmployee(parameters = []) {
 
-    console.log("updating employee's role");
+    // console.log("updating employee's role");
     const query = queries.updateEmp;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -133,7 +133,7 @@ async function updateEmployee(parameters = []) {
 
 async function deleteDepartment(parameters = []) {
 
-    console.log("deleting departments");
+    // console.log("deleting departments");
     const query = queries.deleteDepartment;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -146,7 +146,7 @@ async function deleteDepartment(parameters = []) {
 
 async function deleteRole(parameters = []) {
 
-    console.log("deleting role");
+    // console.log("deleting role");
     const query = queries.deleteRole;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -159,7 +159,7 @@ async function deleteRole(parameters = []) {
 
 async function deleteEmployee(parameters = []) {
 
-    console.log("deleting employee");
+    // console.log("deleting employee");
     const query = queries.deleteEmployee;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -199,7 +199,7 @@ async function viewByManager() {
 
 async function simpleRoleView() {
 
-    console.log("simpleRoleView");
+    // console.log("simpleRoleView");
     const query = queries.simpleRoleView;
     try {
         const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
@@ -212,7 +212,7 @@ async function simpleRoleView() {
 
 async function simpleEmployeeView() {
 
-    console.log("simpleEmployeeView");
+    // console.log("simpleEmployeeView");
     const query = queries.simpleEmployeeView;
     try {
         const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
@@ -225,7 +225,7 @@ async function simpleEmployeeView() {
 
 async function simpleDeptView() {
 
-    console.log("simpleDeptView");
+    // console.log("simpleDeptView");
     const query = queries.simpleDeptView;
     try {
         const [rows, fields] = await connection.query(query); //'SELECT * FROM todos;'
@@ -237,7 +237,7 @@ async function simpleDeptView() {
 
 async function getDepartment(parameters = []) {
 
-    console.log("getDepartment");
+    // console.log("getDepartment");
     const query = queries.getDepartment;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -249,7 +249,7 @@ async function getDepartment(parameters = []) {
 
 async function getRole(parameters = []) {
 
-    console.log("getRole");
+    // console.log("getRole");
     const query = queries.getRole;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -261,7 +261,7 @@ async function getRole(parameters = []) {
 
 async function getEmployee(parameters = []) {
 
-    console.log("getEmployee");
+    // console.log("getEmployee");
     const query = queries.getEmployee;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'
@@ -273,7 +273,7 @@ async function getEmployee(parameters = []) {
 
 async function showOtherEmps(parameters = []) {
 
-    console.log("showOtherEmps");
+    // console.log("showOtherEmps");
     const query = queries.showOtherEmps;
     try {
         const [rows, fields] = await connection.query(query, parameters); //'SELECT * FROM todos;'

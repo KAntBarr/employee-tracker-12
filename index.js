@@ -384,6 +384,14 @@ async function askMore(response) {
 async function main() {
     let runFlag = true;
     // let response;
+
+    console.log(
+`
+------------------------------------
+          Employee Manager
+------------------------------------
+`
+    );
     while (runFlag) {
         try {
             const response = await inquirer.prompt(intro);
